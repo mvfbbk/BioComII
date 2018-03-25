@@ -1,0 +1,5 @@
+{
+    "python.unitTest.pyTestArgs": [],
+    "python.unitTest.pyTestEnabled": true,
+    "python.pythonPath": "/home/bubbz/anaconda3/bin/python"
+}
