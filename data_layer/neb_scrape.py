@@ -63,7 +63,7 @@ data = {E_list: R_seq for E_list, R_seq in zip(E_list, R_seq)}
 filtered_seq = {}
 
 for k, v in data.items():
-    filtered_seq[k] = stickyFinder.sticky_finder(v)
+    filtered_seq[k] = sticky_finder.sticky_finder(v)
 data.clear()
 new_dict = {k:v for k, v in filtered_seq.items() if v is not None}
 print(new_dict)
