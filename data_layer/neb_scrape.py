@@ -1,6 +1,6 @@
 """
-Programme:  Neb Scraper
-File:       neb_scraper.py
+Programme:  Neb Scrape
+File:       neb_scrape.py
 
 Version:    Alpha_1.0
 Date:       2018-03-28
@@ -40,7 +40,7 @@ A_0.1   23.03.18   Alpha   By: MVF
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import pandas as pd
-import stickyFinder
+import sticky_finder
 
 url = 'https://www.neb.com/tools-and-resources/selection-charts/alphabetized-list-of-recognition-specificities'
 html = urlopen(url)
@@ -63,7 +63,7 @@ data = {E_list: R_seq for E_list, R_seq in zip(E_list, R_seq)}
 filtered_seq = {}
 
 for k, v in data.items():
-    filtered_seq[k] = stickyFinder.stickyFinder(v)
+    filtered_seq[k] = stickyFinder.sticky_finder(v)
 data.clear()
 new_dict = {k:v for k, v in filtered_seq.items() if v is not None}
 print(new_dict)
