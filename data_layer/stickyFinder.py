@@ -3,7 +3,7 @@
 # step 2 join original string with new string
 # step 3 check if palindrome
 
-def stickyFinder(dna):
+def sticky_finder(dna):
 
 	from functools import reduce
 	import operator
