@@ -37,12 +37,16 @@ A0.2    07.04.18    Alpha   By: MVF     Comment: using glob and gzip
                                                 modules to support 
                                                 ingestion of compressed
                                                 data files
-A0.3    12.04.18    Alpha   By: MVf     Comment: A0.2 version returned
+A0.3    12.04.18    Alpha   By: MVF     Comment: A0.2 version returned
                                                 poorly formated dictionary
                                                 update changed string 
                                                 formatting order to allow
                                                 dictionnary entries to be
                                                 valid
+A0.4    19.04.18    Alpha   By:MVF      Comment: A0.3 version returned 
+                                                empty entry at start of 
+                                                source file, test 
+                                                introduced to remove this
 """
 
 #*************************************************************************
@@ -77,6 +81,7 @@ def dnaSeqParse(data):
                     s += line.strip()
             S = s.split(sep='ORIGIN')
     for i in S:
-        n += 1
-        sequence[n] = i
+        if len(i) > 0:
+            n += 1
+            sequence[n] = i
     return sequence
