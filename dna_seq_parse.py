@@ -26,8 +26,10 @@ Database
 --------------------------------------------------------------------------
 Usage:
 ======
-Module requires the name of the file to be processed as an input file.
-This information can be supplied within a configuration file.
+Module requires a list of files to be processed. This list can be 
+generated automatically from the main script and passed to the function.
+By saving the files to be processed in the working directory these can be
+parsed automatically in the event that updates are required.
 
 --------------------------------------------------------------------------
 Revision History:
@@ -43,10 +45,9 @@ A0.3    12.04.18    Alpha   By: MVF     Comment: A0.2 version returned
                                                 formatting order to allow
                                                 dictionnary entries to be
                                                 valid
-A0.4    19.04.18    Alpha   By:MVF      Comment: A0.3 version returned 
-                                                empty entry at start of 
-                                                source file, test 
-                                                introduced to remove this
+A0.4    23.04.18    Alpha   By: MVF     Comment: Corrected input for the
+                                                function and updated usage
+                                                information
 """
 
 #*************************************************************************
@@ -60,7 +61,10 @@ import gzip
 path = os.getcwd() + "/{}"
 file = glob.glob('*.gz')
 
-def dnaSeqParse(data):
+# above is not needed in the main script as the 'data' varable will be the 
+# files opened in the main script, kept here for testing
+
+def dnaSeqParse(file):
     start = "ORIGIN"
     end = "//\n"
     sequence = {}
@@ -81,7 +85,7 @@ def dnaSeqParse(data):
                     s += line.strip()
             S = s.split(sep='ORIGIN')
     for i in S:
-        if len(i) > 0:
-            n += 1
-            sequence[n] = i
+    	if len(i) >= 1:
+	        n += 1
+    	    sequence[n] = i
     return sequence
