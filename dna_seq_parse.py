@@ -48,6 +48,7 @@ A0.3    12.04.18    Alpha   By: MVF     Comment: A0.2 version returned
 A0.4    23.04.18    Alpha   By: MVF     Comment: Corrected input for the
                                                 function and updated usage
                                                 information
+A0.5    23.04.18    Alpha   By: MVF     Comment: Make function executable
 """
 
 #*************************************************************************
@@ -64,7 +65,7 @@ file = glob.glob('*.gz')
 # above is not needed in the main script as the 'data' varable will be the 
 # files opened in the main script, kept here for testing
 
-def dnaSeqParse(file):
+def dna_seq_parse(file):
     start = "ORIGIN"
     end = "//\n"
     sequence = {}
@@ -89,3 +90,6 @@ def dnaSeqParse(file):
 	        n += 1
     	    sequence[n] = i
     return sequence
+
+    if __name__ = "__dna_seq_parse__":
+        dna_seq_parse()

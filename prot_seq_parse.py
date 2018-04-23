@@ -11,33 +11,36 @@ Author:     Matthieu Vizuete-Forster
 Address:    Department of Biological Sciences
             Malet Steet, London, WC1E 7HX
 
---------------------------------------------------------------------------
+---------------------------------------------------------------------------
 
 Copyright not yet assigned
 
---------------------------------------------------------------------------
+---------------------------------------------------------------------------
 Description:
 ============
-Module for extracting Protein sequence data from a GenBank file. The 
-module will allow the extraction of the first protein sequence entry
+Module for extracting Protein sequence data from one or more GenBank files.
+The module will allow the extraction of the first protein sequence entry
 within the GenBank entry by use of the moreThanOneEntry function and the 
 unique sequence using the singleEntry function
 
---------------------------------------------------------------------------
+---------------------------------------------------------------------------
 Usage:
 ======
-Module requires the name of the file to be processed as an input file.
-This information can be supplied within a configuration file.
+Module requires a list of files to be processed. This list can be 
+generated automatically from the main script and passed to the function.
+By saving the files to be processed in the working directory these can be
+parsed automatically in the event that updates are required.
 
---------------------------------------------------------------------------
+---------------------------------------------------------------------------
 Revision History:
 =================
 A_0.1   14.03.18   Alpha   By: MVF
-A_0.2   23.04.18   Alpha   By: MVF  Comment: A_0.1 did not return a 
+A_0.2   23.04.18   Alpha   By: MVF      Comment: A_0.1 did not return a 
                                             functional dictionary when 
                                             applied to input file. function
                                             correted to allow all sequences 
                                             to be extracted from the source
+A0.3    23.04.18    Alpha   By: MVF     Comment: Make function executable
 """
 
 
@@ -63,5 +66,8 @@ def prot_seq_parse(file):
         for match in rx_sequence.finditer(i):
             seq = match.group(1)
             prot_seq[seq] = n
+            return prot_seq
+
+    if __name__ = "__prot_seq_parse__":
+        prot_seq_parse()
     
-    return prot_seq
