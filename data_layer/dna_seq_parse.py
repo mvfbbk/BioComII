@@ -39,7 +39,7 @@ A0.1   01.03.18   Alpha   By: MVF
 # Import libraries
 
 def dnaSeqParse(data):
-    
+  
     import re
     start = "ORIGIN"
     end = "//\n"
