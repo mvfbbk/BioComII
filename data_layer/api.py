@@ -37,16 +37,34 @@ def search(param):
 
 
 def get_by_gene_id(id):
+    with open('dummy_data/dna_seq_whole.txt') as f:
+        dna_whole = f.read()
+    with open('dummy_data/aa_seq.txt') as f:
+        aa_seq = f.read()
     return {
         'gene_id': 'CBR',
-        'accenssion': 'AB1234',
-        'protein_name': 'carbon_ill',
+        'accession': 'AB003151',
+        'protein_name': 'carbonyl reductase',
         'location': '56080..59221',
-        'DNA_seq_whole':'gatctgcccacctcagcctcccaaagtgctgggattacaggcgtgagccaccgcacctggcctatatcttgattttttaaaacacaatgagaattcgaagttcacaagaatgttctgaaagggatgtggtgaggataagagagaaatgaaggagaaggggtgagatcgtgaggagtacaggcttatgggctggtgcaatggatgagaagtcagtttcataagggctggaaggccc',
-        'DNA_coding_seq':'tcccaaagtgctgggattacaggcgtgagccaccgcacctggcctatatcttgattttttaaaacacaatgagaattcgaagttcacaagaatgttctgaaagggatgtggtgaggataagagagaaatgaa',
-        'aa_seq'= 'MSSGIHVALVTGGNKGARDVTRGQAAVQQLQAEGLSPRFHQLDIDDLQSIRALRDFLRKEYGGLDVLVNNAGIAFKVADPTPFHIQAEVTMKTNFFGTRDVCTELLPLIKPQGRVVNVSSIMS',
-        'codon_usage_gene':'',
-        'codon_usage_overall':'',
-        'restriction_enzyme':''
-
+        'codon_start': 1,
+        'cds_locations': ['56173..56461', '57007..57114', '58503..58939'],
+        'dna_seq_whole': dna_whole,
+        'aa_seq': aa_seq,
+        'num_exons': 3,
     }
+
+
+def get_restriction_enzymes():
+    return {
+        'EcoRI': '',
+        'BAmHI': '',
+        'BsuMI': '',
+    }
+
+
+def save_codon_freq_gene():
+    pass
+
+
+def save_codon_freq_whole():
+    pass
