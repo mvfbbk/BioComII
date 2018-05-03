@@ -16,6 +16,11 @@ class TestApi(unittest.TestCase):
         self.assertIsNotNone(gene.protein_name)
         self.assertIsNotNone(gene.location)
         self.assertIsNotNone(gene.coding_regions)
+        self.assertIsNotNone(gene.coding_sequence)
+        self.assertIsNotNone(gene.aa_seq)
+        # self.assertEqual(len(gene.coding_sequence)/3, len(gene.aa_seq))
+        # print(gene.coding_sequence)
+
 
     def test_get_gene_by_id_fail(self):
         with self.assertRaises(errors.NoGeneException):
