@@ -63,3 +63,4 @@ def get_all_genes():
 
 def get_restriction_enzymes():
     return read_enzymes('dummy_data/enzymes.csv')
+
