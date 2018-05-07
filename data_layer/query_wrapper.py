@@ -70,6 +70,18 @@ def query_wrapper(query, search_term):
         with connection.cursor() as cursor:
             cursor.execute(sqlQuery)
             returned_data = cursor.fetchall()
+            
+    if request == 'get_all_in_db':
+        sqlQuery = """SELECT gb.*, s.DNA_seq, s.prot_seq
+            FROM genbank gb, sequences sgit 
+            WHERE gb.gene_name      != 'N/A' 
+            AND gb.accession_number != 'N/A' 
+            AND gb.prot             != 'N/A' 
+            AND gb.prod             != 'N/A' 
+            AND gb.map_coord        != 'N/A'"""
+        with connection.cursor() as cursor:
+            cursor.execute(sqlQuery)
+            returned_data = cursor.fetchall()
 
     elif request == 'search':
         sqlQuery = """SELECT * 
