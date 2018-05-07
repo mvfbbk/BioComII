@@ -49,25 +49,26 @@ import glob
 import re
 import gzip
 
-def prot_seq_parse(file):
+path = os.getcwd() + '/{}'
+file = glob.glob("*.gz")
+
+
+
+    
+def prot_seq_parse(data):
+    
+    d = data.read().replace("\n", "")
+    d = d.replace(" ","")
+    s = d.split('//')
 
     rx_sequence = re.compile(r'\/translation="(\w+)"')
     prot_seq = {}
-        n = 0
-    
-    for f in file:
-        with gzip.open(path.format(f), 'rt') as d:
-            data = d.read().replace("\n", "")
-            data = data.replace(" ","")
-            s = data.split('LOCUS//')
+
+    n = 0
 
     for i in s:
         n += 1
         for match in rx_sequence.finditer(i):
             seq = match.group(1)
-            prot_seq[seq] = n
-            return prot_seq
-
-    if __name__ = "__prot_seq_parse__":
-        prot_seq_parse()
-    
+            prot_seq[n] = seq
+    return prot_seq

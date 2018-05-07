@@ -51,9 +51,6 @@ A0.4    23.04.18    Alpha   By: MVF     Comment: Corrected input for the
 A0.5    23.04.18    Alpha   By: MVF     Comment: Make function executable
 """
 
-#*************************************************************************
-# Import libraries
-
 import os
 import glob
 import re
@@ -86,10 +83,7 @@ def dna_seq_parse(file):
                     s += line.strip()
             S = s.split(sep='ORIGIN')
     for i in S:
-    	if len(i) >= 1:
-	        n += 1
-    	    sequence[n] = i
+        if len(i) >= 1:
+            n += 1
+            sequence[n] = i
     return sequence
-
-    if __name__ = "__dna_seq_parse__":
-        dna_seq_parse()
