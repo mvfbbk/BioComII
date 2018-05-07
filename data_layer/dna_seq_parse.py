@@ -26,14 +26,20 @@ Database
 --------------------------------------------------------------------------
 Usage:
 ======
+<<<<<<< HEAD
 Module requires a list of files to be processed. This list can be 
 generated automatically from the main script and passed to the function.
 By saving the files to be processed in the working directory these can be
 parsed automatically in the event that updates are required.
+=======
+Module requires the name of the file to be processed as an input file.
+This information can be supplied within a configuration file.
+>>>>>>> 28412ee8e04c049a6d0256f17e31c3dd80536d33
 
 --------------------------------------------------------------------------
 Revision History:
 =================
+<<<<<<< HEAD
 A0.1    01.03.18    Alpha   By: MVF
 A0.2    07.04.18    Alpha   By: MVF     Comment: using glob and gzip 
                                                 modules to support 
@@ -87,3 +93,31 @@ def dna_seq_parse(file):
             n += 1
             sequence[n] = i
     return sequence
+=======
+A0.1   01.03.18   Alpha   By: MVF
+"""
+
+#*************************************************************************
+# Import libraries
+
+def dnaSeqParse(data):
+  
+    import re
+    start = "ORIGIN"
+    end = "//\n"
+    sequence = ''
+
+    file = data #open('AB003151_1.txt')
+    started =  False
+
+    for line in file:
+        if end in line:
+            started = False
+        if started:
+            sequence += line.strip()
+        if start in line:
+            started = True
+        sequence = re.sub('[\W|\d]' , '', sequence)
+    file.close()
+    return sequence
+>>>>>>> 28412ee8e04c049a6d0256f17e31c3dd80536d33

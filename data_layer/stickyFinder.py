@@ -30,7 +30,3 @@ def sticky_finder(dna):
 		for i in test_seq:
 			if i == e:
 				return e
-		
-#	sticky.append([i for i, j in zip(DNA, test_seq) if i == j])
-#	sticky = reduce(operator.add, sticky)
-#	return sticky

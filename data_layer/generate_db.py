@@ -1,5 +1,9 @@
 """
+<<<<<<< HEAD
 Programme:  GenerateDB
+=======
+Programme:  
+>>>>>>> 28412ee8e04c049a6d0256f17e31c3dd80536d33
 File:       generate_db.py
 
 Version:    Alpha_1.0
@@ -13,11 +17,16 @@ Address:    Department of Biological Sciences
 
 --------------------------------------------------------------------------
 
+<<<<<<< HEAD
 released under GPL v3.0 licence
+=======
+Copyright not yet assigned
+>>>>>>> 28412ee8e04c049a6d0256f17e31c3dd80536d33
 
 --------------------------------------------------------------------------
 Description:
 ============
+<<<<<<< HEAD
 Script that will create the database, tables contained within the schema
 --------------------------------------------------------------------------
 Usage:
@@ -139,3 +148,61 @@ with open(path.format(e), 'rt') as enz_data:
         except Exception as msg:
                 print(msg)
         connection.commit()
+=======
+Module for handling SQL queries
+
+--------------------------------------------------------------------------
+Usage:
+======
+Module requires 
+
+--------------------------------------------------------------------------
+Revision History:
+=================
+A_0.1   23.03.18   Alpha   By: MVF
+"""
+import PyMySQL.cursors
+
+def CreateDatabase(database):
+    #create database
+    connection = pymysql.connect(host = 'localhost',
+                                user = 'root',
+                                port = 3306,
+                                password ='')
+    try:
+        with connection.cursor() as cursor:
+            sql = 'CREATE DATABSE %s;' %s database        
+            cursor.execute(sql)
+    finally:
+        connection.close()
+  
+#create table
+def createTable(table, column):
+    connection = pymysql.connect(host = 'localhost',
+                                user = 'root',
+                                port = 3306,
+                                password = '',
+                                db = database,
+                                cursorclass = pymysql.cursors.DictCursor)
+    try:
+        with connection.cursor() as cursor:
+            sqlQuery = "CREATE TABLE IF NOT EXISTS %s (%s, );" %s (table, column)
+            cursor.execute(sqlQuery)
+    finally:
+        connection.close()
+    
+# insert data in to the table
+def dataInsert(table, source):
+    connection = pymysql.connect(host = 'localhost',
+                                user = 'root',
+                                port = 3306,
+                                password = '',
+                                db = database,
+                                cursorclass = pymysql.cursors.DictCursor)
+    try:
+        with connection.cursor() as cursor:
+            sqlQuery = "BULK INSERT INTO %s FROM %s" %s (table, source) "WITH (rowterminator = '\n', fieldterminator = ',');" 
+    finally:
+        connection.close()
+    
+>>>>>>> 28412ee8e04c049a6d0256f17e31c3dd80536d33

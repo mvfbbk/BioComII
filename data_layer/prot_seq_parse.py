@@ -11,6 +11,7 @@ Author:     Matthieu Vizuete-Forster
 Address:    Department of Biological Sciences
             Malet Steet, London, WC1E 7HX
 
+<<<<<<< HEAD
 ---------------------------------------------------------------------------
 
 released under GPL v3.0 licence
@@ -41,10 +42,35 @@ A_0.2   23.04.18   Alpha   By: MVF      Comment: A_0.1 did not return a
                                             correted to allow all sequences 
                                             to be extracted from the source
 A0.3    23.04.18    Alpha   By: MVF     Comment: Make function executable
+=======
+--------------------------------------------------------------------------
+
+Copyright not yet assigned
+
+--------------------------------------------------------------------------
+Description:
+============
+Module for extracting Protein sequence data from a GenBank file. The 
+module will allow the extraction of the first protein sequence entry
+within the GenBank entry by use of the moreThanOneEntry function and the 
+unique sequence using the singleEntry function
+
+--------------------------------------------------------------------------
+Usage:
+======
+Module requires the name of the file to be processed as an input file.
+This information can be supplied within a configuration file.
+
+--------------------------------------------------------------------------
+Revision History:
+=================
+A_0.1   14.03.18   Alpha   By: MVF
+>>>>>>> 28412ee8e04c049a6d0256f17e31c3dd80536d33
 """
 
 
 import os
+<<<<<<< HEAD
 import glob
 import re
 import gzip
@@ -72,3 +98,40 @@ def prot_seq_parse(data):
             seq = match.group(1)
             prot_seq[n] = seq
     return prot_seq
+=======
+import re
+
+rx_sequence=re.compile(r"\/translation=\"((\w+)(?:\W+\w+)+)\"\nO")
+rx_sequence_1=re.compile(r"\/translation=\"((\w+)(?:\W+\w+)+)\"\n\s+g")
+rx_blank=re.compile(r"\W")
+
+sequence = {}
+
+def singeEntry(data):
+    for match in rx_sequence_1.finditer(data):
+        seq = match.group(1)
+        seq = rx_blank.sub("", seq)
+        n = 0
+        if len(seq) > 0:
+            n +=1
+            sequence[n] = seq
+    return sequence
+
+def moreThanOneEntry(data):
+    for match in rx_sequence_1.finditer(data):
+        seq = match.group(1)
+        seq = rx_blank.sub("", seq)
+        n = 0
+        if len(seq) > 0:
+            n +=1
+            sequence[n] = seq
+    
+    for match in rx_sequence.finditer(data):
+        seq = match.group(1)
+        seq = rx_blank.sub("", seq)
+        n = 0
+        if len(seq) > 0:
+            n += 1
+            sequence[n] = seq
+    return sequence 
+>>>>>>> 28412ee8e04c049a6d0256f17e31c3dd80536d33
