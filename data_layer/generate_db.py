@@ -1,9 +1,5 @@
 """
-<<<<<<< HEAD
 Programme:  GenerateDB
-=======
-Programme:  
->>>>>>> 28412ee8e04c049a6d0256f17e31c3dd80536d33
 File:       generate_db.py
 
 Version:    Alpha_1.0
@@ -17,16 +13,11 @@ Address:    Department of Biological Sciences
 
 --------------------------------------------------------------------------
 
-<<<<<<< HEAD
 released under GPL v3.0 licence
-=======
-Copyright not yet assigned
->>>>>>> 28412ee8e04c049a6d0256f17e31c3dd80536d33
 
 --------------------------------------------------------------------------
 Description:
 ============
-<<<<<<< HEAD
 Script that will create the database, tables contained within the schema
 --------------------------------------------------------------------------
 Usage:
@@ -56,7 +47,7 @@ e = 'enzymes.csv'
 
 hst = input('host: ')
 usr = input('user: ')
-passwd = getpass.getpass(prompt='Password', stream=None)
+passwd = str(getpass.getpass(prompt='Password', stream=None))
 
 connection = pymysql.connect(host = hst, 
         user= usr, 
@@ -84,8 +75,9 @@ with open(path.format(g),'rt') as gen_bank_data:
         exon_join = x[5]
         exon_num  = x[6]
 
-        sqlQuery = """INSERT INTO genbank (`accession_number`,`gene_name`, `map_coord`, `prot`, `prod`, `exon_join`, `exon_num`) 
-        VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')""".format(acc_num, gene_name, map_coord, prot, prod, exon_join, exon_num)
+        sqlQuery = """INSERT INTO genbank (`accession_number`
+        ,`gene_name`, `map_coord`, `prot`, `prod`, `exon_join`
+        , `exon_num`) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')""".format(acc_num, gene_name, map_coord, prot, prod, exon_join, exon_num)
 
         try:
             with connection.cursor() as cursor:
@@ -96,11 +88,13 @@ with open(path.format(g),'rt') as gen_bank_data:
 
 try:
     with connection.cursor() as cursor:
-        cursor.execute("INSERT INTO sequences (accession_number) SELECT accession_number FROM genbank;")
+        cursor.execute("INSERT INTO sequences (`accession_number`) SELECT accession_number FROM genbank;")
         cursor.execute(sqlQuery)
 except Exception as msg:
         print(msg)
 connection.commit()
+
+
 
 with open(path.format(d), 'rt') as DNA_data:
     for row in DNA_data.readlines():
@@ -135,6 +129,13 @@ with open(path.format(p),'rt') as prot_data:
             print(msg)
 connection.commit()
 
+try:
+    with connection.cursor() as cursor:
+        cursor.execute("ALTER TABLE sequences ADD FOREIGN KEY (`accession_number`) REFERENCES genbank(`accession_number`);")
+except Exception as msg:
+    print(msg)
+connection.commit()
+
 with open(path.format(e), 'rt') as enz_data:
     for row in enz_data:
         w = row.split(';')
@@ -148,61 +149,4 @@ with open(path.format(e), 'rt') as enz_data:
         except Exception as msg:
                 print(msg)
         connection.commit()
-=======
-Module for handling SQL queries
-
---------------------------------------------------------------------------
-Usage:
-======
-Module requires 
-
---------------------------------------------------------------------------
-Revision History:
-=================
-A_0.1   23.03.18   Alpha   By: MVF
-"""
-import PyMySQL.cursors
-
-def CreateDatabase(database):
-    #create database
-    connection = pymysql.connect(host = 'localhost',
-                                user = 'root',
-                                port = 3306,
-                                password ='')
-    try:
-        with connection.cursor() as cursor:
-            sql = 'CREATE DATABSE %s;' %s database        
-            cursor.execute(sql)
-    finally:
-        connection.close()
-  
-#create table
-def createTable(table, column):
-    connection = pymysql.connect(host = 'localhost',
-                                user = 'root',
-                                port = 3306,
-                                password = '',
-                                db = database,
-                                cursorclass = pymysql.cursors.DictCursor)
-    try:
-        with connection.cursor() as cursor:
-            sqlQuery = "CREATE TABLE IF NOT EXISTS %s (%s, );" %s (table, column)
-            cursor.execute(sqlQuery)
-    finally:
-        connection.close()
-    
-# insert data in to the table
-def dataInsert(table, source):
-    connection = pymysql.connect(host = 'localhost',
-                                user = 'root',
-                                port = 3306,
-                                password = '',
-                                db = database,
-                                cursorclass = pymysql.cursors.DictCursor)
-    try:
-        with connection.cursor() as cursor:
-            sqlQuery = "BULK INSERT INTO %s FROM %s" %s (table, source) "WITH (rowterminator = '\n', fieldterminator = ',');" 
-    finally:
-        connection.close()
-    
->>>>>>> 28412ee8e04c049a6d0256f17e31c3dd80536d33
+        
