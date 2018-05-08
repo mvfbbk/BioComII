@@ -1,65 +1,95 @@
+"""
+Program:    BioComII
+File:       api.py
+
+Version:    V1.0
+Date:       07.05.18
+Function:   Expose database layer api for the UI logic layer to consume.
+
+Copyright:  (c) Ifigenia Tsitsa, BBK, 2018
+Author:     Ifigenia Tsitsa
+Address:    Department of Biological Sciences
+            Malet Steet, London, WC1E 7HX
+	        Birkbeck, University of London
+      
+---------------------------------------------------------------------------
+
+Copyright not yet assigned
+
+--------------------------------------------------------------------------
+Description:
+============
+This program connects to the database and exposes query functions 
+to the logic layer.
+--------------------------------------------------------------------------
+Revision History:
+=================
+
+A0.1    07.05.18    Alpha   By: IT
+A0.2    07.05.18    Alpha   By: IT     Comment: Add initial layer integration.
+"""
+#*************************************************************************
+# import libraries
 import json
 from glob import glob
 
 from dummy_data.utils import read_enzymes
 
-
+from .query_wrapper import query_wrapper
+#*************************************************************************
 def get_all():
-    return [{
-        'gene_id': 'CBR',
-        'accenssion': 'AB1234',
-        'protein_name': 'carbon_ill',
-        'location': '56080..59221'
-    }, {
-        'gene_id': 'CBR',
-        'accenssion': 'AB1234',
-        'protein_name': 'carbon_ill',
-        'location': '56080..59221'
-    }, {
-        'gene_id': 'CBR',
-        'accenssion': 'AB1234',
-        'protein_name': 'carbon_ill',
-        'location': '56080..59221'
-    }]
+     """
+        Gets all the genes from the database.
 
+        Return: gene_id, accenssion, protein_name, location for 
+        every gene.
 
+        07.05.18 Original By: IT
+        """
+    return query_wrapper('get_all', '')
+
+#*************************************************************************
 def search(param):
-    return [{
-        'gene_id': 'CBR',
-        'accenssion': 'AB1234',
-        'protein_name': 'carbon_ill',
-        'location': '56080..59221'
-    }, {
-        'gene_id': 'CBR',
-        'accenssion': 'AB1234',
-        'protein_name': 'carbon_ill',
-        'location': '56080..59221'
-    }, {
-        'gene_id': 'CBR',
-        'accenssion': 'AB1234',
-        'protein_name': 'carbon_ill',
-        'location': '56080..59221'
-    }]
+     """
+        Gets all the genes from the database filtered by a search parameter.
 
+        Return: gene_id, accenssion, protein_name, location for 
+        every gene applicable to the search parameter.
 
+        07.05.18 Original By: IT
+        """
+    return query_wrapper('search', param)
+
+#*************************************************************************
 def get_by_gene_id(id):
-    with open('dummy_data/gene_{}.json'.format(id)) as f:
-        gene_data = json.load(f)
+    """
+        Gets all the information from the database for a single gene.
 
-    return gene_data
+        Return: all the information about a gene.
 
+        07.05.18 Original By: IT
+        """
+    return query_wrapper('id_full', id)
 
+#*************************************************************************
 def get_all_genes():
-    results = []
-    files = glob('dummy_data/gene_*.json')
+    """
+        Gets all the information about all the  genes from the database.
 
-    for file in files:
-        with open(file) as f:
-            gene_data = json.load(f)
-            results.append(gene_data)
+        Return: all the info about all the genes.
 
-    return results
+        07.05.18 Original By: IT
+        """
+    return query_wrapper('id_full_all', 'c')
 
-
+#*************************************************************************
 def get_restriction_enzymes():
-    return read_enzymes('dummy_data/enzymes.csv')
+    """
+        Gets all the restriction enzymes from the database.
+
+        Return: all the restriction enzymes along with their sequences.
+
+        07.05.18 Original By: IT
+        """
+    return query_wrapper('enzyme_list', '')
+#*************************************************************************

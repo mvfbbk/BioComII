@@ -32,7 +32,7 @@ A0.3    02.05.18    Alpha   By: IT     Comment: Add gene coding region
                                                 calculations and tests.
 A0.4    03.05.18    Alpha   By: IT     Comment: Add alignment of dna 
                                                 to amino acid.
-A0.5    07.04.18    Alpha   By: IT     Comment: Add codon usage, overall codon 
+A0.5    07.05.18    Alpha   By: IT     Comment: Add codon usage, overall codon 
                                                 usage and and restriction 
                                                 enzyme handling 
                                                 relevant functions.
@@ -106,10 +106,9 @@ class LogicApi:
             raise NoGeneException
 
         # Get gene from the database layer
-        gene = self.data_api.get_by_gene_id(gene_id)
-
-        return self._gene_dict_to_gene(gene)
-
+            gene = self.data_api.get_by_gene_id(gene_id)
+            return self._gene_dict_to_gene(gene)
+            
 # *************************************************************************
 
     def get_overall_codon_frequencies(self):
@@ -119,7 +118,7 @@ class LogicApi:
         Return:(overall_freq)  --- A dictionary containing the frequencies of
         codons in all the coding regions.
 
-        07.04.18 Original By: IT
+        01.05.18 Original By: IT
         """
         genes = self.data_api.get_all_genes()
         dna_to_aa_all = []
@@ -163,7 +162,7 @@ class LogicApi:
         Input: codon string
         Return: a string with the long name of the amino acid
 
-        07.04.18 Original By: IT
+        01.05.18 Original By: IT
         """
 
         return codontable[codon.upper()]
@@ -174,9 +173,9 @@ class LogicApi:
                                           gene_id,
                                           restriction_enzymes_list=None):
         """
-        Get an instance of a Gene class for a specific gene filter by gene_id
+        Get an instance of the Gene class for a specific gene filter by gene_id
         with all the possible information from the database and all the
-        appropriate calcucations executed and the restriction enzymes
+        appropriate calculations executed and the restriction enzymes
         calculated. If no restriction_enzymes_list is passed then it will 
         get all the available restriction enzymes from the database.
 
@@ -208,7 +207,7 @@ class LogicApi:
         Return: (restriction enzymes) --- A list of all the available
         restriction enzymes.
 
-        06.04.18 Original By: IT
+        06.05.18 Original By: IT
         """
         return self.data_api.get_restriction_enzymes()
 
