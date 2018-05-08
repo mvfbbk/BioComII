@@ -28,23 +28,33 @@ import gzip
 path = os.getcwd() + '/{}'
 file = glob.glob("*.gz")
 
+import os
+import glob
+import re
+import gzip
 
+path =  os.getcwd() + "/{}"
+file_list = glob.glob('*.gz')
 
+rx_sequence = re.compile(r'\/translation="(\w+)"')
+prot_seq = {}
+n = 0
     
-def prot_seq_parse(data):
+for f in file_list:
+    with gzip.open(path.format(f), 'rt') as d:
+        data = d.read().replace("\n", "")
+        data = data.replace(" ","")
+        s = data.split('//L')
+
+for i in s:
+    n += 1
+    for match in rx_sequence.finditer(i):
+        seq = match.group(1)
+        prot_seq[n] = seq
     
-    d = data.read().replace("\n", "")
-    d = d.replace(" ","")
-    s = d.split('//')
-
-    rx_sequence = re.compile(r'\/translation="(\w+)"')
-    prot_seq = {}
-
-    n = 0
-
-    for i in s:
-        n += 1
-        for match in rx_sequence.finditer(i):
-            seq = match.group(1)
-            prot_seq[n] = seq
-    return prot_seq
+with open(path.format('prot.csv'), 'w') as outfile:
+    for k, v in prot_seq.items():
+        outfile.write(str(k))
+        outfile.write(';')
+        outfile.write(v)
+        outfile.write('\n')
