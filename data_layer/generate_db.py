@@ -67,17 +67,17 @@ connection.commit()
 with open(path.format(g),'rt') as gen_bank_data:
     for row in gen_bank_data.readlines():
         x = row.split(';')
-        acc_num   = x[0]
-        gene_name = x[1]
-        map_coord = x[2]
-        prot      = x[3]
-        prod      = x[4]
-        exon_join = x[5]
-        exon_num  = x[6]
+        acc_num     = x[0]
+        map_coord   = x[1]
+        gene_name   = x[2]
+        start_pos   = x[3]
+        prot        = x[4]
+        prod        = x[5]
+        exon_join   = x[6]
+        exon_num    = x[7]
 
-        sqlQuery = """INSERT INTO genbank (`accession_number`
-        ,`gene_name`, `map_coord`, `prot`, `prod`, `exon_join`
-        , `exon_num`) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')""".format(acc_num, gene_name, map_coord, prot, prod, exon_join, exon_num)
+        sqlQuery = """INSERT INTO genbank (`accession_number`,`gene_name`, `map_coord`, `prot`, `prod`, `exon_join`, `exon_num`, `start_pos`) 
+        VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', {7})""".format(acc_num, gene_name, map_coord, prot, prod, exon_join, exon_num, start_pos)
 
         try:
             with connection.cursor() as cursor:
@@ -149,4 +149,3 @@ with open(path.format(e), 'rt') as enz_data:
         except Exception as msg:
                 print(msg)
         connection.commit()
-        
