@@ -4,7 +4,7 @@ File:       api.py
 
 Version:    V1.0
 Date:       07.05.18
-Function:   Expose database layer api for the UI logic layer to consume.
+Function:   Expose database layer api for the logic layer to consume.
 
 Copyright:  (c) Ifigenia Tsitsa, BBK, 2018
 Author:     Ifigenia Tsitsa
