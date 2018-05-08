@@ -48,7 +48,7 @@ A0.3    12.04.18    Alpha   By: MVF     Comment: A0.2 version returned
 A0.4    23.04.18    Alpha   By: MVF     Comment: Corrected input for the
                                                 function and updated usage
                                                 information
-A0.5    23.04.18    Alpha   By: MVF     Comment: Make function executable
+A0.5    23.04.18    Alpha   By: MVF     Comment: reveting to script
 """
 
 import os
@@ -57,33 +57,42 @@ import re
 import gzip
 
 path = os.getcwd() + "/{}"
-file = glob.glob('*.gz')
+file_list = glob.glob('*.gz')
 
+start = "ORIGIN"
+end = "//\n"
+sequence = {}
+n = 0
+started = False
 # above is not needed in the main script as the 'data' varable will be the 
 # files opened in the main script, kept here for testing
+start = "ORIGIN"
+end = "//\n"
+sequence = {}
+n = 0
+started = False
 
-def dna_seq_parse(file):
-    start = "ORIGIN"
-    end = "//\n"
-    sequence = {}
-    n = 0
-    started = False
+for f in file_list:
+    with gzip.open(path.format(f), 'rt') as d:
+        data = d.readlines()
+        s = ''
+        for line in data:
+            if end in line:
+                started = False
+            if start in line:
+                started = True
+            if started:
+                line = re.sub('[\W|\d]', '', line)
+                s += line.strip()
+        S = s.split(sep='ORIGIN')
+for i in S:
+    if len(i) >= 1:
+        n += 1
+        sequence[n] = i
 
-    for f in file:
-        with gzip.open(path.format(f), 'rt') as d:
-            data = d.readlines()
-            s = ''
-            for line in data:
-                if end in line:
-                    started = False
-                if start in line:
-                    started = True
-                if started:
-                    line = re.sub('[\W|\d]', '', line)
-                    s += line.strip()
-            S = s.split(sep='ORIGIN')
-    for i in S:
-        if len(i) >= 1:
-            n += 1
-            sequence[n] = i
-    return sequence
+with open(path.format('seq.csv'), 'w') as outfile:
+    for k, v in sequence.items():
+        outfile.write(str(k))
+        outfile.write(';')
+        outfile.write(v)
+        outfile.write('\n')
